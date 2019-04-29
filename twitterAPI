@@ -1,0 +1,29 @@
+#import twitter
+from tweepy import OAuthHandler
+from tweepy.streaming import StreamListener
+from tweepy import Stream
+Consumer_Key="ABGqOmNBeo3H3g3i0y5MH0B1U"
+Consumer_Secret="XcUsWjyVwnXJ7An3e0wEmdnsQCDyHGOM0gmQLm14kTdoAntr2x"
+Access_Token_Key="90126975-Ehaid4XgKPQnV4yThT1MKX8ZTtJ45dfMRC3nNZ6U3"
+Access_Token_Secret="xYpHzjpbiQW3KjeDrMFq0UzZ0tks7eoZnBVElrg2cSXLj"
+
+#api = twitter.api(consumer_key=Consumer_Key
+#                  ,consumer_secret=Consumer_Secret
+#                  ,access_token_key=Access_Token_Key
+#                  ,access_token_secret=Access_Token_Secret)
+class StdOutListener(StreamListener):
+    
+    def on_data(self,data):
+        print(data)
+        return True
+    def on_error(self,status):
+        print(status)
+        
+if __name__ == '__main__':
+    
+    l= StdOutListener()
+    auth = OAuthHandler(Consumer_Key,Consumer_Secret)
+    auth.set_access_token(Access_Token_Key,Access_Token_Secret)
+    stream = Stream(auth,l)
+    stream.filter(track=['ynetalerts'])
+
